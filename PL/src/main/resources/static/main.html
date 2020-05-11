@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poor+Story&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <style type="text/css">
+    body {
+        font-family: 'Poor Story', cursive;
+      }
+	.hidden-div { display: none; }
+	.header-select-week { margin: 30px 80px 40px 80px; width: 50%;}
+	.week-group { margin: 0 20px 15px;}
+	.week-today { background-color: #dc3545;}
+	</style>
+	
+    <!-- JS -->
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	
+<!--     <script src="/resources/scripts/jquery-3.4.1.min.js"></script>
+ -->    <script src="/resources/scripts/jquery.mobile-1.4.5.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <title>파국이월드</title>
+</head>
+<body>
+
+
+<section data-role="page" id="2.swipe flick" class="eventPage" data-next="2.swipe flick2" data-prev="2.swipe flick3" data-dom-cache="true">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Park Scheuler</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">일정</a>
+      </li>
+      <li class="nav-item" id="scheuler-management">
+        <a class="nav-link dropdown-toggle" href="#" >수업관리</a>
+        <ul class="list-group hidden-div dropdown-menu">
+  		  <li class="list-group-item d-flex justify-content-between align-items-center">
+   			- 수업등록
+  			</li>
+  		  <li class="list-group-item d-flex justify-content-between align-items-center">
+    		- 수업종류
+  		  </li>
+		</ul>
+      </li>
+      <li class="nav-item" id="user-management">
+        <a class="nav-link dropdown-toggle" href="#">회원관리</a>
+        <ul class="list-group hidden-div dropdown-menu">
+  		  <li class="list-group-item d-flex justify-content-between align-items-center">
+   			- 회원목록
+  		  </li>
+  		  <li class="list-group-item d-flex justify-content-between align-items-center">
+    		- 회원등록
+  		  </li>
+		</ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+    
+    <div class="content" data-role="content"><h1>좌우로 밀어주세요1</h1></div>
+    <div class="content" data-role="content"><h1>좌우로 밀어주세요1</h1></div>
+    <div class="content" data-role="content"><h1>좌우로 밀어주세요1</h1></div>
+
+    <!-- <footer data-role="footer"><h1>drsggg.tistory.com</h1></footer> -->
+</section>
+
+<!-- <div class="header-select-week">
+	<h2 id="this-week">11월 5째주</h2>
+</div>
+
+<div class="card bg-light mb-3 week-group" style="max-width: 20rem;">
+  <div class="card-header">18일(월요일)</div>
+  <div class="card-body">
+    <p class="card-text">오후 3:00 ~ 오후 4:00 (PT)이소미</p>
+  </div>
+</div> -->
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  // 주 일정 조회 
+  
+  $.ajax({
+     url:'/calendar/week',
+     type:'post',
+     dataType: "json",
+     success:function(data){
+         console.log(data)
+     }
+  })
+	
+	$('.dropdown-toggle').click(function () {
+	    $(this).next('.dropdown-menu').slideToggle(300);
+	});
+  
+});
+
+$( document ).one( "pagecreate", ".eventPage", function() {
+    // Handler for navigating to the next page
+    function navnext( next ) {
+    	console.log('next')
+        $( ":mobile-pagecontainer" ).pagecontainer( "change", "main.html", {
+            transition: "slide"
+            });
+        }
+ 
+    // Handler for navigating to the previous page
+    function navprev( prev ) {
+        $( ":mobile-pagecontainer" ).pagecontainer( "change", "main.html", {
+            transition: "slide",
+            reverse: true
+        });
+    }
+    
+    $( document ).on( "swipeleft", ".ui-page", function( event ) {
+        var next = $( this ).jqmData( "next" );
+        if ( next ) {
+            navnext( next );
+        }
+    });
+    
+    $( document ).on( "swiperight", ".ui-page", function( event ) {
+        var prev = $( this ).jqmData( "prev" );
+        if ( prev ) {
+            navprev( prev );
+        }
+    });
+    
+});
+
+</script>
+</body>
+</html>
