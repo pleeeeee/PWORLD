@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poor+Story&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poor Story', cursive;
+      }
+      .login-div { margin: 80px 30px 0 30px;}
+      .hello-div { margin-bottom: 100px;}
+      #gocoder_typing { margin: 30px 10px 0 10px; }
+      .hidden-div { display: none; }
+    </style>
+ 	<!-- JS -->
+    <Script src="/resources/scripts/jquery-3.4.1.min.js"></script>
+    <Script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://www.cssscript.com/demo/simple-typewriter-effect-pure-javascript-typewriterjs/typewriter.js"></script>
+<title>파국이월드</title>
+</head>
+<body>
+
+<div class="login-div">
+<div class="hello-div">
+  <p class="lead" id="main-welcom-typing"></p>
+</div>
+
+<div class="form-group">
+  <input type="password" class="form-control " placeholder="암호 입력해주세요." id="passwordInput">
+  <div class="invalid-feedback hidden-div">암호가 일치하지 않습니다.</div>
+</div>
+</div>
+
+<div class="modal" id="login-success-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Welcome Park's world!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<img alt="" src="/resources/image/image0001.gif"/>
+        <p id = 'username'></p>
+        <p>오늘도 화이팅하세요.🙋🏻‍♀️</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btn-main">메인으로 슝슝</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+var typing = document.getElementById('main-welcom-typing');
+var typewriter = new Typewriter(typing, {
+    loop: true
+});
+ 
+typewriter.typeString('파국이 월드에 오신걸 ')
+    .pauseFor(700)
+    .deleteAll()
+    .typeString("Park's 월드에 오신걸 ")
+    .pauseFor(400)
+    .typeString('환영합니다.')
+    .pauseFor(500)
+    .deleteChars(1)
+    .typeString('!!!!')
+    .pauseFor(700)
+    .typeString(' :)')
+    .pauseFor(2000)
+    .start();
+
+var login = function (userPwd) {
+	$.ajax({
+	     url:'/login/'+userPwd,
+	     type:'post',
+	     dataType: "json",
+	     success:function(data) {
+	         console.log(data)
+	         $('#username').text(data.user.userName + ' 트레이너님 환영합니다. :)');
+	     }
+	  })
+}
+    
+$(document).ready(function() {
+	$(document).on('keyup', '#passwordInput', function() {
+		console.log($(this).val());
+		if ( $(this).val() == '내사랑이또미' ) {
+			$(this).removeClass('is-invalid');
+			$(this).next('div').addClass('hidden-div');
+			$(this).blur();
+			login($(this).val());
+			$('#login-success-modal').modal();
+		} else {
+			$(this).addClass('is-invalid');
+			$(this).next('div').removeClass('hidden-div');
+		}
+	});
+	
+	$(document).on('click', '#btn-main', function() {
+		$(location).attr('href', '/main.html');
+	});
+});
+</script>
+</html>
