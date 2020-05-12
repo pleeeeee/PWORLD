@@ -51,7 +51,7 @@
         <p>오늘도 화이팅하세요.🙋🏻‍♀️</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" id="btn-main">start</button>
+        <button type="button" class="btn btn-success" id="btn-main">LeGo!</button>
       </div>
     </div>
   </div>
@@ -92,12 +92,11 @@ var login = function (userPwd) {
 var init = function() {
 	//select id list
 	$.ajax({
-	     url:'/login/'+userPwd,
+	     url:'/employee/ids',
 	     type:'post',
 	     dataType: "json",
 	     success:function(data) {
-	         console.log(data)
-	         $('#username').text(data.user.userName + ' 트레이너님 환영합니다. :)');
+	         console.log(data);
 	     }
 	});
 }
@@ -106,7 +105,7 @@ $(document).ready(function() {
 	
 	init();
 	
-	$(document).on('keyup', '#passwordInput', function() {
+	/* $(document).on('keyup', '#passwordInput', function() {
 		console.log($(this).val());
 		if ( $(this).val() == '내사랑이또미' ) {
 			$(this).removeClass('is-invalid');
@@ -118,7 +117,7 @@ $(document).ready(function() {
 			$(this).addClass('is-invalid');
 			$(this).next('div').removeClass('hidden-div');
 		}
-	});
+	}); */
 	
 	$(document).on('click', '#btn-main', function() {
 		$(location).attr('href', '/main.html');

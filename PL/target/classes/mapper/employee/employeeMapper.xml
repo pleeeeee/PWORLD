@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.plee.pl.employee.service.dao.EmployeeDAO" >
+
+    <select id="selectEmployeeIds" resultType="kr.plee.pl.employee.service.dto.EmployeeDTO">
+        select 
+			user_id as userId
+		    , user_pwd as userPwd
+		    , user_name as userName
+		    , kakao_token as kakaoToke
+		from tb_pl_user
+    </select>
+    
+</mapper>
